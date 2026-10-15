@@ -29,7 +29,7 @@ Evaluate this in an **Input** cell of your destination notebook. The imported ce
 
 **Try the neutral scientific demonstration:** [`Examples/SampleMarkdown.md`](Examples/SampleMarkdown.md) explains the package whilst exercising nested headings, longer passages of scientific prose, differential equations, statistical and probability formulae, mathematical tables, numbered lists and non-evaluatable Wolfram Language code.
 
-Copy the raw sample to the clipboard and run `BridgeMarkdown[]` in Mathematica to see its actual formatting and collapsible cell groups. An authentic front-end screenshot of **this same neutral example** can be added once captured.
+Copy the raw sample to the clipboard and run `BridgeMarkdown[]` in Mathematica to see its actual formatting and collapsible cell groups. The real Mathematica screenshots below show portions of that neutral scientific demonstration.
 
 ## What the imported result looks like
 
@@ -162,7 +162,7 @@ For the actual clipboard workflow, copy the *raw Markdown source* from the file 
 - `PacletInfo.wl`: paclet metadata.
 - `Tests/ImporterTests.wlt`: seven kernel regression tests.
 - `Examples/SampleMarkdown.md`: expanded manual demonstration and acceptance test.
-- `docs/images/`: reserved for an authentic screenshot of the neutral public demonstration.
+- `docs/images/`: authentic Mathematica screenshots from the neutral scientific demonstration.
 - `CHANGELOG.md`, `LICENSE`, `BuildPaclet.wl`: release history, MIT licence and build helper.
 
 ## Author, feedback and licence
