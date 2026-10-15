@@ -31,6 +31,22 @@ Evaluate this in an **Input** cell of your destination notebook. The imported ce
 
 Copy the raw sample to the clipboard and run `BridgeMarkdown[]` in Mathematica to see its actual formatting and collapsible cell groups. An authentic front-end screenshot of **this same neutral example** can be added once captured.
 
+## What the imported result looks like
+
+The screenshots below show actual Mathematica front-end output produced by importing the public demonstration file [`Examples/SampleMarkdown.md`](Examples/SampleMarkdown.md) with `BridgeMarkdown[]`.
+
+### Nested heading hierarchy and formatted Text cells
+
+![Imported Markdown rendered as nested Mathematica Text cells with collapsible heading groups](docs/images/samplemarkdown-headings-dark.png)
+
+This example shows the imported heading hierarchy, preserved bold and italic emphasis, and the mapping from Markdown heading levels to formatted Mathematica **Text cells**.
+
+### Mathematical tables and readable Grid rendering
+
+![Imported Markdown tables rendered as readable Mathematica grids with typeset mathematical expressions](docs/images/samplemarkdown-tables-dark.png)
+
+This example shows recognised Markdown tables rendered as readable Mathematica **Grid** cells, including typeset mathematical expressions inside table entries.
+
 ## Capabilities
 
 | Markdown input | Imported notebook content |
