@@ -27,9 +27,9 @@ BridgeMarkdown[]
 
 Evaluate this in an **Input** cell of your destination notebook. The imported cells are inserted directly after that cell, respecting their Markdown order and creating expandable heading groups.
 
-![Nested text-cell headings, maths and tables in a Mathematica notebook](docs/images/nested-notes-light.png)
+**Try the neutral scientific demonstration:** [`Examples/SampleMarkdown.md`](Examples/SampleMarkdown.md) explains the package whilst exercising nested headings, longer passages of scientific prose, differential equations, statistical and probability formulae, mathematical tables, numbered lists and non-evaluatable Wolfram Language code.
 
-*Real Mathematica front-end output from an earlier manual acceptance test. The public demonstration file uses a separate, neutral scientific example.*
+Copy the raw sample to the clipboard and run `BridgeMarkdown[]` in Mathematica to see its actual formatting and collapsible cell groups. An authentic front-end screenshot of **this same neutral example** can be added once captured.
 
 ## Capabilities
 
@@ -146,7 +146,7 @@ For the actual clipboard workflow, copy the *raw Markdown source* from the file 
 - `PacletInfo.wl`: paclet metadata.
 - `Tests/ImporterTests.wlt`: seven kernel regression tests.
 - `Examples/SampleMarkdown.md`: expanded manual demonstration and acceptance test.
-- `docs/images/`: authentic, cropped Mathematica screenshots from manual tests.
+- `docs/images/`: reserved for an authentic screenshot of the neutral public demonstration.
 - `CHANGELOG.md`, `LICENSE`, `BuildPaclet.wl`: release history, MIT licence and build helper.
 
 ## Author, feedback and licence
