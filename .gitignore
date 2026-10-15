@@ -1,0 +1,7 @@
+# PacletTools build products and local kernel artifacts
+build/
+*.mx
+*.nb~
+*.nbp
+.DS_Store
+Thumbs.db
