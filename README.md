@@ -14,6 +14,71 @@ Markdown is an effective exchange format for ChatGPT and many other AI or resear
 
 It builds on Wolfram's built-in `ImportString[..., {"Markdown", "Notebook"}]` rather than attempting to replace a full Markdown parser.
 
+## Quick start — try it in a fresh Mathematica notebook
+
+Want to see MarkdownNotebookBridge working? You can try it directly from Mathematica without downloading files manually, cloning a repository or using Git.
+Requirements: Mathematica on Windows (tested with version 15.0.1).
+1. Install and load the paclet
+Open a new Mathematica notebook. Paste the following into an Input cell and evaluate it using Shift+Enter:
+
+```wolfram
+(* Install the public GitHub release *)
+
+publicPaclet = PacletInstall[
+  URL[
+    "https://github.com/reasonvoyager/MarkdownNotebookBridge/releases/download/v0.1.1/MarkdownNotebookBridge-0.1.1.paclet"
+  ]
+];
+
+(* Load the package *)
+
+Needs["MarkdownNotebookBridge`"];
+```
+You only need to install the paclet once. In future Mathematica sessions, simply load it using Needs["MarkdownNotebookBridge"]`.
+2. Prepare the import command
+In a new Input cell, enter:
+
+```wolfram
+BridgeMarkdown[]
+```
+Do not evaluate it yet. Leave the cell ready for execution.
+
+3. Copy this sample Markdown
+Use the copy control on the following code block to copy the entire sample to your Windows clipboard:
+
+```markdown
+# Public Release Test
+This is a **bold statement** and an *italic qualification*.
+
+## Mathematical Expression
+
+The Gaussian probability density is:
+\[
+f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]
+
+## Table Test
+| Quantity | Formula |
+|---|---|
+| **Mean** | \(\mu=\frac{1}{n}\sum_{i=1}^{n}x_i\) |
+| **Variance** | \(\sigma^2=\frac{1}{n}\sum_{i=1}^{n}(x_i-\mu)^2\) |
+
+```
+
+4. Run the import
+Return to Mathematica, select the Input cell containing BridgeMarkdown[], and press Shift+Enter.
+That's it!
+You should see the Markdown transformed into native Mathematica notebook content, including:
+- Nested, collapsible heading groups using formatted Text cells.
+- Bold and italic text.
+- A typeset Gaussian probability density formula.
+- A formatted table with mathematical expressions.
+All content is inserted directly into your existing notebook. Imported headings do not interfere with your original notebook's section numbering or organisation.
+What next?
+Copy any Markdown from ChatGPT or another source and evaluate BridgeMarkdown[] again wherever you want to insert it.
+For a more comprehensive example, see SampleMarkdown.md.
+For alternative installation methods, source code, technical details and limitations, continue reading below.
+
 ## One-command use
 
 Once installed:
@@ -74,11 +139,11 @@ The importer currently recognises the six standard Markdown heading levels. Inte
 
 **These are all rendered as `"Text"` cells**, not the native heading styles listed for comparison.
 
-## Install
+## Alternative installation methods
 
 ### Recommended: prebuilt paclet from GitHub Releases
 
-After the first release is published, download `MarkdownNotebookBridge-0.1.1.paclet` from its GitHub release assets, then run:
+Download `MarkdownNotebookBridge-0.1.1.paclet` from its GitHub release assets, then run:
 
 ```wolfram
 PacletInstall[File["C:\\path\\to\\MarkdownNotebookBridge-0.1.1.paclet"]];
