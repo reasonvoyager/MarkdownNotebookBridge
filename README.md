@@ -240,6 +240,14 @@ Copyright © 2026 Andre Elan. Distributed under the [MIT licence](LICENSE).
 
 Please submit issues and improvement suggestions through GitHub Issues after the repository is published. Contributions are welcome, particularly platform testing, front-end theme fixes and Markdown edge cases.
 
+### Wolfram Community discussion
+
+I've introduced MarkdownNotebookBridge on [Wolfram Community](https://community.wolfram.com/t/import-markdown-into-existing-mathematica-notebooks-without-changing-their-section-structure/28349).
+
+If you try the paclet, I'd welcome hearing how it works in your Mathematica environment, particularly with different notebook themes, Wolfram Language versions or operating systems.
+
+For reproducible bugs and proposed improvements, please use [GitHub Issues](https://github.com/reasonvoyager/MarkdownNotebookBridge/issues).
+
 ## Wolfram reference
 
 - [Markdown import format](https://reference.wolfram.com/language/ref/format/Markdown.html)
