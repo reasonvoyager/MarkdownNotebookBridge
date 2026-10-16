@@ -18,6 +18,7 @@ It builds on Wolfram's built-in `ImportString[..., {"Markdown", "Notebook"}]` ra
 
 Want to see MarkdownNotebookBridge working? You can try it directly from Mathematica without downloading files manually, cloning a repository or using Git.
 Requirements: Mathematica on Windows (tested with version 15.0.1).
+
 1. Install and load the paclet
 Open a new Mathematica notebook. Paste the following into an Input cell and evaluate it using Shift+Enter:
 
@@ -35,6 +36,7 @@ publicPaclet = PacletInstall[
 Needs["MarkdownNotebookBridge`"];
 ```
 You only need to install the paclet once. In future Mathematica sessions, simply load it using Needs["MarkdownNotebookBridge"]`.
+
 2. Prepare the import command
 In a new Input cell, enter:
 
