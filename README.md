@@ -2,9 +2,9 @@
 
 **Import Markdown as independently grouped research notes inside an existing Mathematica notebook.**
 
-**Author:** Andre Elan · **GitHub:** [@reasonvoyager](https://github.com/reasonvoyager) · **Licence:** MIT · **Version:** 0.1.1 (initial public beta)
+**Author:** Andre Elan · **GitHub:** [@reasonvoyager](https://github.com/reasonvoyager) · **Licence:** MIT · **Version:** 0.1.2 (public beta; Unicode clipboard compatibility)
 
-Tested with **Mathematica 15.0.1 on Windows**, including light and Dracula-themed notebooks, source-package and installed-paclet tests, and seven Wolfram Language regression tests (7/7 passed after correcting one test assertion). Other Wolfram Language versions and operating systems have not yet been verified.
+Tested with **Mathematica 15.0.1 on Windows**, including light and Dracula-themed notebooks, source-package and installed-paclet tests, and ten Wolfram Language regression tests (10/10 passed). Other Wolfram Language versions and operating systems have not yet been verified.
 
 ## Why this exists
 
@@ -17,7 +17,8 @@ It builds on Wolfram's built-in `ImportString[..., {"Markdown", "Notebook"}]` ra
 ## Quick start — try it in a fresh Mathematica notebook
 
 Want to see MarkdownNotebookBridge working? You can try it directly from Mathematica without downloading files manually, cloning a repository or using Git.
-Requirements: Mathematica on Windows (tested with version 15.0.1).
+
+**Requirements:** Mathematica on Windows (tested with version 15.0.1). Version 0.1.2 also preserves Japanese and other Unicode text copied through the Windows clipboard.
 
 1. Install and load the paclet
 Open a new Mathematica notebook. Paste the following into an Input cell and evaluate it using Shift+Enter:
@@ -27,7 +28,7 @@ Open a new Mathematica notebook. Paste the following into an Input cell and eval
 
 publicPaclet = PacletInstall[
   URL[
-    "https://github.com/reasonvoyager/MarkdownNotebookBridge/releases/download/v0.1.1/MarkdownNotebookBridge-0.1.1.paclet"
+    "https://github.com/reasonvoyager/MarkdownNotebookBridge/releases/download/v0.1.2/MarkdownNotebookBridge-0.1.2.paclet"
   ]
 ];
 
@@ -35,7 +36,7 @@ publicPaclet = PacletInstall[
 
 Needs["MarkdownNotebookBridge`"];
 ```
-You only need to install the paclet once. In future Mathematica sessions, simply load it using Needs["MarkdownNotebookBridge"]`.
+You only need to install the paclet once. In future Mathematica sessions, simply load it using `Needs["MarkdownNotebookBridge`"]`.
 
 2. Prepare the import command
 In a new Input cell, enter:
@@ -122,6 +123,7 @@ This example shows recognised Markdown tables rendered as readable Mathematica *
 | Ordinary paragraphs, `**bold**`, `*italic*` | Readable Text cells with preserved emphasis |
 | `\(...\)` and `\[...\]` | Typeset inline and display mathematics |
 | Pipe tables, including inline TeX | Formatted **Grid** cells (not narrow native Tabular displays) |
+| Unicode text (including Japanese) | Preserved across the Windows clipboard-to-notebook workflow (v0.1.2) |
 | Numbered lists | Grouped list cells; separate lists restart at 1 |
 | Fenced code blocks | **Code** cells with `Evaluatable -> False` |
 | Markdown hyperlinks | Delegated to Wolfram's native Markdown importer; link behaviour may depend on the front end |
@@ -145,13 +147,15 @@ The importer currently recognises the six standard Markdown heading levels. Inte
 
 ### Recommended: prebuilt paclet from GitHub Releases
 
-Download `MarkdownNotebookBridge-0.1.1.paclet` from its GitHub release assets, then run:
+Download `MarkdownNotebookBridge-0.1.2.paclet` from its [GitHub release assets](https://github.com/reasonvoyager/MarkdownNotebookBridge/releases/tag/v0.1.2), then run:
 
 ```wolfram
-PacletInstall[File["C:\\path\\to\\MarkdownNotebookBridge-0.1.1.paclet"]];
+PacletInstall[File["C:\\path\\to\\MarkdownNotebookBridge-0.1.2.paclet"]];
 Needs["MarkdownNotebookBridge`"];
 BridgeMarkdown[]
 ```
+
+**Earlier release:** [v0.1.1](https://github.com/reasonvoyager/MarkdownNotebookBridge/releases/tag/v0.1.1) remains available for reproducibility, but v0.1.2 is recommended for Unicode text.
 
 **Note:** The separate `.paclet` file is built using Wolfram's `PacletBuild`. A source ZIP is **not** interchangeable with the `.paclet` archive. The public binary release asset must be supplied from a Wolfram-built archive; it is not embedded in this source repository.
 
@@ -216,7 +220,7 @@ For the actual clipboard workflow, copy the *raw Markdown source* from the file 
 
 ## Compatibility, known limitations and safety
 
-- **Tested environment:** Windows, Mathematica 15.0.1. Clipboard reading currently calls PowerShell `Get-Clipboard -Raw`.
+- **Tested environment:** Windows, Mathematica 15.0.1. Clipboard reading uses PowerShell `Get-Clipboard -Raw` with Base64-encoded UTF-8 transport to preserve Unicode characters.
 - Affected notebook themes may show **poor contrast in `"Code"` cells with `Evaluatable -> False`**, especially light themes. This is a front-end style issue observed in manual testing, not a failure of the Markdown parser. The option is retained deliberately so reference code is non-evaluatable by default but can be enabled through **Cell → Cell Properties → Evaluatable**.
 - Markdown tables currently expect ordinary pipe separators. Complex escaped pipes, nested tables, and advanced TeX environments may not be handled correctly.
 - Inline mathematical rendering is based on supported TeX conventions and the existing specialised Grid renderer, not a complete LaTeX implementation.
@@ -227,7 +231,7 @@ For the actual clipboard workflow, copy the *raw Markdown source* from the file 
 
 - `Kernel/MarkdownNotebookBridge.wl`: the consolidated v6 import and table-rendering implementation, with public wrappers.
 - `PacletInfo.wl`: paclet metadata.
-- `Tests/ImporterTests.wlt`: seven kernel regression tests.
+- `Tests/ImporterTests.wlt`: ten kernel regression tests, including Unicode cases.
 - `Examples/SampleMarkdown.md`: expanded manual demonstration and acceptance test.
 - `docs/images/`: authentic Mathematica screenshots from the neutral scientific demonstration.
 - `CHANGELOG.md`, `LICENSE`, `BuildPaclet.wl`: release history, MIT licence and build helper.
@@ -238,7 +242,7 @@ For the actual clipboard workflow, copy the *raw Markdown source* from the file 
 
 Copyright © 2026 Andre Elan. Distributed under the [MIT licence](LICENSE).
 
-Please submit issues and improvement suggestions through GitHub Issues after the repository is published. Contributions are welcome, particularly platform testing, front-end theme fixes and Markdown edge cases.
+Please submit issues and improvement suggestions through [GitHub Issues](https://github.com/reasonvoyager/MarkdownNotebookBridge/issues). Contributions are welcome, particularly platform testing, front-end theme fixes and Markdown edge cases.
 
 ### Wolfram Community discussion
 
