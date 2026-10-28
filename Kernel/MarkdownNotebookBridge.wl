@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* MarkdownNotebookBridge 0.1.1 — packaged version of the
+(* MarkdownNotebookBridge 0.1.2 — packaged version of the
    independently tested notebook-import workflow, v6.          *)
 
 BeginPackage["MarkdownNotebookBridge`"];
@@ -70,18 +70,36 @@ normaliseImportedMarkdownListGroupingFunction[cell_] := cell;
 (* ============================================================ *)
 
 readPlainTextFromSystemClipboardFunction[] :=
- Module[{clipboardText},
+ Module[{encodedText, clipboardText},
 
-  clipboardText =
+  (* PowerShell 5.1 may output non-ASCII characters in the active console
+     encoding. Transport Base64-encoded UTF-8 to avoid information loss. *)
+
+  encodedText =
    Quiet @ Check[
      RunProcess[
       {
        "powershell.exe",
        "-NoProfile",
        "-Command",
-       "Get-Clipboard -Raw"
+       "[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes((Get-Clipboard -Raw)))"
       },
       "StandardOutput"
+     ],
+     $Failed
+    ];
+
+  If[
+   ! StringQ[encodedText] ||
+    StringTrim[encodedText] === "",
+   Return[$Failed]
+  ];
+
+  clipboardText =
+   Quiet @ Check[
+     ByteArrayToString[
+      ByteArray[StringTrim[encodedText]],
+      "UTF-8"
      ],
      $Failed
     ];

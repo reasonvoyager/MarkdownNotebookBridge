@@ -69,3 +69,54 @@ VerificationTest[
   True,
   TestID -> "Legacy insertion alias retains BridgeMarkdown options"
 ]
+
+(* Regression coverage for non-Latin text and mathematical tables. *)
+
+VerificationTest[
+  Module[{cells},
+    cells = MarkdownToNotebookCells[
+      "# 世界の人口上位3カ国\n\n日本語のテストです。"
+    ];
+    MatchQ[cells, {__Cell}] &&
+      ! FreeQ[
+        cells,
+        s_String /; StringContainsQ[s, "世界の人口上位3カ国"]
+      ] &&
+      ! FreeQ[
+        cells,
+        s_String /; StringContainsQ[s, "日本語のテスト"]
+      ]
+  ],
+  True,
+  TestID -> "Japanese heading and paragraph retained"
+]
+
+VerificationTest[
+  Module[{table},
+    table = RenderMarkdownTable[
+      "| 順位 | 国名 |\n|---|---|\n| 1 | インド |\n| 2 | 中国 |"
+    ];
+    MatchQ[table, _Grid] &&
+      ! FreeQ[table, "インド"] &&
+      ! FreeQ[table, "中国"]
+  ],
+  True,
+  TestID -> "Japanese and Chinese characters retained in Grid"
+]
+
+VerificationTest[
+  Module[{cells},
+    cells = MarkdownToNotebookCells[
+      "# Multilingual notes\n\nРусский текст. Ελληνικά. 中文。"
+    ];
+    MatchQ[cells, {__Cell}] &&
+      AllTrue[
+        {"Русский", "Ελληνικά", "中文"},
+        Function[token,
+          ! FreeQ[cells, s_String /; StringContainsQ[s, token]]
+        ]
+      ]
+  ],
+  True,
+  TestID -> "Multilingual non-Latin text retained"
+]

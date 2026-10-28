@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2 — Unicode clipboard patch (release candidate)
+
+- Preserve Unicode clipboard content using Base64-encoded UTF-8 from Windows PowerShell into the Wolfram kernel.
+- Fix Japanese text corruption reported by an independent Wolfram Community tester; existing Markdown rendering algorithms are unchanged.
+- Add Japanese heading, Japanese table and mixed-script regression tests (ten tests in total).
+- Final regression run, compiled paclet verification and GitHub release publication are pending.
+
+
 ## 0.1.1 — initial public beta (2026-10-15)
 
 - Introduced `BridgeMarkdown[]` as the primary Markdown-clipboard command.
