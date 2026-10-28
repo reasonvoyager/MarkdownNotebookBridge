@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2 — Unicode clipboard compatibility (2026-10-28)
+
+- Preserve Unicode clipboard content using Base64-encoded UTF-8 from Windows PowerShell into the Wolfram kernel.
+- Fix Japanese text corruption reported by an independent Wolfram Community tester; existing Markdown rendering algorithms are unchanged.
+- Add Japanese heading, Japanese table and mixed-script regression tests (ten tests in total).
+- All 10 Wolfram Language tests passed in Mathematica 15.0.1 (Windows). The v0.1.2 paclet was built, installed in the standard paclet repository and verified in a fresh kernel; Japanese and English clipboard-import acceptance tests passed.
+- Public GitHub v0.1.2 release and independent download verification are pending.
+
+
 ## 0.1.1 — initial public beta (2026-10-15)
 
 - Introduced `BridgeMarkdown[]` as the primary Markdown-clipboard command.
