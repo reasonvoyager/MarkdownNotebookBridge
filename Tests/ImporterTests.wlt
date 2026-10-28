@@ -70,48 +70,60 @@ VerificationTest[
   TestID -> "Legacy insertion alias retains BridgeMarkdown options"
 ]
 
-(* Regression coverage for non-Latin text and mathematical tables. *)
+(* Regression coverage for Unicode without non-ASCII source-file characters. *)
+(* TestReport may read .wlt files using a Windows system encoding. *)
 
 VerificationTest[
-  Module[{cells},
+  Module[{heading, paragraph, cells},
+    heading = FromCharacterCode[{19990, 30028, 12398, 20154, 21475, 19978, 20301, 51, 12459, 22269}];
+    paragraph = FromCharacterCode[{26085, 26412, 35486, 12398, 12486, 12473, 12488, 12391, 12377, 12290}];
     cells = MarkdownToNotebookCells[
-      "# 世界の人口上位3カ国\n\n日本語のテストです。"
+      "# " <> heading <> "\n\n" <> paragraph
     ];
     MatchQ[cells, {__Cell}] &&
-      ! FreeQ[
-        cells,
-        s_String /; StringContainsQ[s, "世界の人口上位3カ国"]
-      ] &&
-      ! FreeQ[
-        cells,
-        s_String /; StringContainsQ[s, "日本語のテスト"]
-      ]
+      ! FreeQ[cells, s_String /; StringContainsQ[s, heading]] &&
+      ! FreeQ[cells, s_String /; StringContainsQ[s, paragraph]]
   ],
   True,
   TestID -> "Japanese heading and paragraph retained"
 ]
 
 VerificationTest[
-  Module[{table},
-    table = RenderMarkdownTable[
-      "| 順位 | 国名 |\n|---|---|\n| 1 | インド |\n| 2 | 中国 |"
+  Module[{rank, country, india, china, markdown, table},
+    rank = FromCharacterCode[{38918, 20301}];
+    country = FromCharacterCode[{22269, 21517}];
+    india = FromCharacterCode[{12452, 12531, 12489}];
+    china = FromCharacterCode[{20013, 22269}];
+    markdown = StringRiffle[
+      {
+        "| " <> rank <> " | " <> country <> " |",
+        "|---|---|",
+        "| 1 | " <> india <> " |",
+        "| 2 | " <> china <> " |"
+      },
+      "\n"
     ];
+    table = RenderMarkdownTable[markdown];
     MatchQ[table, _Grid] &&
-      ! FreeQ[table, "インド"] &&
-      ! FreeQ[table, "中国"]
+      ! FreeQ[table, india] &&
+      ! FreeQ[table, china]
   ],
   True,
   TestID -> "Japanese and Chinese characters retained in Grid"
 ]
 
 VerificationTest[
-  Module[{cells},
+  Module[{russian, greek, chinese, cells},
+    russian = FromCharacterCode[{1056, 1091, 1089, 1089, 1082, 1080, 1081}];
+    greek = FromCharacterCode[{917, 955, 955, 951, 957, 953, 954, 940}];
+    chinese = FromCharacterCode[{20013, 25991}];
     cells = MarkdownToNotebookCells[
-      "# Multilingual notes\n\nРусский текст. Ελληνικά. 中文。"
+      "# Multilingual notes\n\n" <>
+        russian <> " text. " <> greek <> ". " <> chinese <> "."
     ];
     MatchQ[cells, {__Cell}] &&
       AllTrue[
-        {"Русский", "Ελληνικά", "中文"},
+        {russian, greek, chinese},
         Function[token,
           ! FreeQ[cells, s_String /; StringContainsQ[s, token]]
         ]
