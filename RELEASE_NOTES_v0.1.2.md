@@ -1,25 +1,29 @@
-# MarkdownNotebookBridge v0.1.2 — Unicode clipboard patch (release candidate)
+# MarkdownNotebookBridge v0.1.2 — Unicode clipboard compatibility
 
-Author: Andre Elan · GitHub: @reasonvoyager · Licence: MIT
+**Author:** Andre Elan · **GitHub:** @reasonvoyager · **Licence:** MIT
 
-## Fix
+## Fixed
 
-Preserves Japanese and other non-ASCII text copied through the Windows clipboard. The PowerShell reader transports Base64-encoded UTF-8 bytes, which Wolfram Language decodes explicitly. This avoids the encoding conversion that corrupted Japanese headings and Grid tables in v0.1.1.
+Windows clipboard import now preserves Japanese and other Unicode text by transferring Base64-encoded UTF-8 bytes from PowerShell and decoding them explicitly in Wolfram Language.
 
-The notebook Markdown parser, heading hierarchy, table renderer and public API are unchanged.
+This resolves a bug reported by an independent Wolfram Community user: v0.1.1 displayed corrupted Japanese headings and Markdown table cells when using `BridgeMarkdown[]`.
 
-## Evidence and verification
+**The existing Markdown parser, notebook heading grouping, mathematical table renderer and public commands are unchanged.**
 
-An independent user identified Japanese corruption in v0.1.1. The original clipboard method failed the Unicode round trip, whereas Base64/UTF-8 passed. Parser-only rendering and a temporary end-to-end override of the clipboard reader also passed in Mathematica 15.0.1 on Windows.
+## Verification
 
-**Release-candidate status:** The changed repository source and ten tests still require execution against the new source and the built v0.1.2 paclet. Do not publish before these checks pass.
+Tested with **Mathematica 15.0.1 on Windows** on 28 October 2026:
 
-## Acceptance checks
+- All **10/10 Wolfram Language regression tests** passed (seven original tests plus three additional Unicode tests).
+- Built the versioned `MarkdownNotebookBridge-0.1.2.paclet` archive successfully.
+- Installed the built archive into Mathematica's standard paclet repository.
+- Verified the installed version `0.1.2` and the UTF-8/Base64 clipboard reader in a fresh kernel.
+- End-to-end `BridgeMarkdown[]` tests passed for Japanese headings and tables, and for the existing English-language mathematical workflow.
 
-1. Run TestReport on Tests/ImporterTests.wlt: expect 10/10.
-2. Build MarkdownNotebookBridge-0.1.2.paclet using PacletBuild.
-3. In a fresh kernel install that precise archive and verify PacletFind reports version 0.1.2.
-4. Run BridgeMarkdown[] with Japanese Markdown containing a pipe table; then test the existing English, mathematics and heading-grouping examples.
-5. Publish the exact tested archive as the v0.1.2 release asset and independently install the public download.
+The original 0.1.1 release remains available unchanged. Support on other operating systems and Mathematica versions remains unverified.
 
-Other operating systems and Mathematica versions remain unverified. v0.1.1 remains available unchanged.
+## Installation
+
+Once the release asset is published, download `MarkdownNotebookBridge-0.1.2.paclet` from the v0.1.2 GitHub release and install it in Mathematica using `PacletInstall`.
+
+This release changes only clipboard Unicode transport and associated tests; see the README for the usage walkthrough and the established limitations.
